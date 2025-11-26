@@ -1,0 +1,30 @@
+import java_cup.runtime.*;
+import ast.*;
+
+parser code {:
+    scanner s;
+    parser(scanner s){ this.s=s; }
+:}
+
+scan with {: return s.next_token(); :}
+
+terminal PLUS, MINUS, TIMES, SLASH;
+terminal LPAREN, RPAREN, SEMI; 
+terminal String ID; 
+terminal Integer NUMBER; 
+
+non terminal Node program, stmt, expr;
+
+precedence left PLUS, MINUS, TIMES, SLASH;
+
+program ::= stmt:s SEMI {: RESULT = s; :};
+stmt ::= expr:e {: RESULT = e; :};
+
+expr ::= expr:e1 PLUS expr:e2   {: RESULT = new BinaryOpNode(e1, "+", e2); :} // Cria um nó de Soma
+       | expr:e1 MINUS expr:e2  {: RESULT = new BinaryOpNode(e1, "-", e2); :} // Cria um nó de Subtração
+       | expr:e1 TIMES expr:e2  {: RESULT = new BinaryOpNode(e1, "*", e2); :} // Cria um nó de Multiplicação
+       | expr:e1 SLASH expr:e2  {: RESULT = new BinaryOpNode(e1, "/", e2); :} // Cria um nó de Divisão
+       | LPAREN expr:e RPAREN   {: RESULT = e; :} // Parênteses são ignorados na AST
+       | NUMBER:n               {: RESULT = new LiteralNode(n); :} // Nó para valor constante
+       | ID:i                   {: RESULT = new IdentifierNode(i); :} // Nó para identificador (variável)
+       ;
