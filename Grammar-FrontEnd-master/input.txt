@@ -1,1 +1,15 @@
-(10+x)*2;
+func int somar(int a, int b){
+    int resultado = a + b;
+    return resultado;
+};
+int x;
+int y = 5;
+x = 10;
+while(x > 0){
+	if(x == 5){
+		y = somar(x, 1);
+	} else {
+		x = x - 1;
+	};
+};
+int z = somar(x, y);

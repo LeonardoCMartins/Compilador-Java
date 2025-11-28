@@ -22,14 +22,11 @@ COMMENT_ML = "/*" (.|[\r\n])*? "*/"
 
 <YYINITIAL> {
 
-    // Ignorar espaços
-    {WHITESPACE} { System.out.println("<WHITESPACE>"); }
+    {WHITESPACE} { /* */ }
 
-    // Comentários
     {COMMENT_SL} { System.out.println("<COMMENT_SL>");}
     {COMMENT_ML} { System.out.println("<COMMENT_ML>");}
 
-    // ===== Delimitadores =====
     ";" { 
         System.out.println("<SEMI>");
     }
@@ -49,7 +46,6 @@ COMMENT_ML = "/*" (.|[\r\n])*? "*/"
         System.out.println("<RPAREN>");
     }
 
-    // ===== Operadores =====
     "==" { System.out.println("<EQ>");  }
     "!=" { System.out.println("<NE>"); }
     "<=" { System.out.println("<LE>"); }
@@ -62,18 +58,15 @@ COMMENT_ML = "/*" (.|[\r\n])*? "*/"
     "/"  { System.out.println("<SLASH>");  }
     "="  { System.out.println("<ASSIGN>"); }
 
-    // ===== Keywords =====
     "if"     { System.out.println("<IF>"); }
     "else"   { System.out.println("<ELSE>"); }
     "while"  { System.out.println("<WHILE>");  }
     "return" { System.out.println("<RETURN>"); }
 
-    // ===== Identificadores =====
     {ID_START}{ID_CONT}* { 
         System.out.println("<ID:" + yytext() + ">");
     }
 
-    // ===== Constantes =====
     {FLOAT} {
         System.out.println("<FLOAT:" + yytext() + ">");
     }
@@ -82,7 +75,6 @@ COMMENT_ML = "/*" (.|[\r\n])*? "*/"
         System.out.println("<INT:" + yytext() + ">");
     }
 
-    // Caracter inválido
     . { 
         System.out.println("<ILLEGAL:" + yytext() + ">");
     }

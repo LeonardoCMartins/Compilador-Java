@@ -719,7 +719,7 @@ class scanner {
           // fall through
           case 30: break;
           case 2:
-            { System.out.println("<WHITESPACE>");
+            { /* */
             }
           // fall through
           case 31: break;

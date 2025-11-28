@@ -6,25 +6,135 @@ parser code {:
     parser(scanner s){ this.s=s; }
 :}
 
+
 scan with {: return s.next_token(); :}
 
+// --- TERMINAIS ---
+terminal KW_INT, KW_FLOAT, KW_IF, KW_ELSE, KW_WHILE, KW_FUNC, KW_RETURN;
 terminal PLUS, MINUS, TIMES, SLASH;
-terminal LPAREN, RPAREN, SEMI; 
-terminal String ID; 
-terminal Integer NUMBER; 
+terminal EQ, NEQ, LT, GT, LTE, GTE;
+terminal LPAREN, RPAREN, LBRACE, RBRACE, SEMI, COMMA;
+terminal ASSIGN;
+terminal String ID;
+terminal Integer NUMBER;
 
-non terminal Node program, stmt, expr;
 
-precedence left PLUS, MINUS, TIMES, SLASH;
+// --- NÃO-TERMINAIS ---
+non terminal Node program, decl, stmt, block;
+non terminal Node expr, func_call, param_list, arg_list;
+non terminal String type;
 
-program ::= stmt:s SEMI {: RESULT = s; :};
-stmt ::= expr:e {: RESULT = e; :};
+// NÃO-TERMINAIS PARA SEPARAR LISTAS (mantidos para resolver o R/R)
+non terminal Node decl_list, non_empty_top_level_list;
+non terminal Node stmt_list, non_empty_block_stmt_list;
+non terminal Node decl_or_stmt; // Permite Declaração (decl) OU Comando (stmt)
 
-expr ::= expr:e1 PLUS expr:e2   {: RESULT = new BinaryOpNode(e1, "+", e2); :} // Cria um nó de Soma
-       | expr:e1 MINUS expr:e2  {: RESULT = new BinaryOpNode(e1, "-", e2); :} // Cria um nó de Subtração
-       | expr:e1 TIMES expr:e2  {: RESULT = new BinaryOpNode(e1, "*", e2); :} // Cria um nó de Multiplicação
-       | expr:e1 SLASH expr:e2  {: RESULT = new BinaryOpNode(e1, "/", e2); :} // Cria um nó de Divisão
-       | LPAREN expr:e RPAREN   {: RESULT = e; :} // Parênteses são ignorados na AST
-       | NUMBER:n               {: RESULT = new LiteralNode(n); :} // Nó para valor constante
-       | ID:i                   {: RESULT = new IdentifierNode(i); :} // Nó para identificador (variável)
+
+// --- PRECEDÊNCIA ---
+precedence right ASSIGN;
+precedence nonassoc EQ, NEQ; 
+precedence nonassoc LT, GT, LTE, GTE; 
+precedence left PLUS, MINUS; 
+precedence left TIMES, SLASH; 
+
+
+// ----------------------------------------------------------------------
+// A. Estrutura do Programa (Nível Superior - CORREÇÃO FINAL)
+// ----------------------------------------------------------------------
+
+program ::= decl_list:dl {: RESULT = dl; :}; // Nó raiz
+
+// decl_list: Lista de todos os elementos no nível superior (opcional)
+decl_list ::= non_empty_top_level_list:nsl {: RESULT = nsl; :}
+            | /* empty */ {: RESULT = new ProgramNode(); :}
+            ;
+
+// [REMOVIDO: non terminal top_level_item e sua regra]
+
+// non_empty_top_level_list: Agora usa decl_or_stmt diretamente, que aceita
+// tanto Declarações (int x;) quanto Comandos (x = 10; / while (...) )
+non_empty_top_level_list ::= non_empty_top_level_list:nl decl_or_stmt:d_s SEMI {: ((StatementListNode)nl).add(d_s); RESULT = nl; :}
+                           | decl_or_stmt:d_s SEMI {: RESULT = new StatementListNode(d_s); :}
+                           ;
+
+
+// ----------------------------------------------------------------------
+// B. Declarações e Definições
+// ----------------------------------------------------------------------
+
+// 'decl' (Definição de Função e Declaração de Variável)
+decl ::= type:t ID:i {: RESULT = new VarDeclNode(t, i); :} 
+       | type:t ID:i ASSIGN expr:e {: RESULT = new VarInitNode(t, i, e); :} 
+       | KW_FUNC type:t ID:i LPAREN param_list:pl RPAREN block:b {: RESULT = new FuncDefNode(t, i, pl, b); :} 
+       ;
+
+// Tipo (RETORNA STRING)
+type ::= KW_INT:i {: RESULT = "int"; :} 
+       | KW_FLOAT:f {: RESULT = "float"; :}
+       ;
+
+// Lista de Parâmetros
+param_list ::= type:t ID:i {: RESULT = new ParamListNode(t, i); :}
+             | param_list:pl COMMA type:t ID:i {: ((ParamListNode)pl).add(t, i); RESULT = pl; :}
+             | /* empty */ {: RESULT = new ParamListNode(); :}
+             ;
+
+// ----------------------------------------------------------------------
+// C. Estruturas de Controle (Comandos)
+// ----------------------------------------------------------------------
+
+// stmt_list (Lista dentro de blocos {...} - Opcional)
+stmt_list ::= non_empty_block_stmt_list:nsl {: RESULT = nsl; :}
+            | /* empty */ {: RESULT = new StatementListNode(); :} 
+            ;
+
+// decl_or_stmt: Permite Declaração OU Comando (Usado tanto no topo quanto em blocos)
+decl_or_stmt ::= decl:d {: RESULT = d; :} 
+               | stmt:s {: RESULT = s; :} 
+               ;
+
+// non_empty_block_stmt_list: Lista de itens DENTRO do bloco
+non_empty_block_stmt_list ::= non_empty_block_stmt_list:sl decl_or_stmt:d_s SEMI {: ((StatementListNode)sl).add(d_s); RESULT = sl; :}
+                            | decl_or_stmt:d_s SEMI {: RESULT = new StatementListNode(d_s); :}
+                            ;
+
+block ::= LBRACE stmt_list:sl RBRACE {: RESULT = sl; :};
+
+// O 'stmt' define apenas comandos executáveis (Não inclui mais 'decl')
+stmt ::= ID:i ASSIGN expr:e {: RESULT = new AssignmentNode(i, e); :} // Atribuição
+       | KW_IF LPAREN expr:e RPAREN block:b1 KW_ELSE block:b2 {: RESULT = new IfElseNode(e, b1, b2); :} 
+       | KW_IF LPAREN expr:e RPAREN block:b1 {: RESULT = new IfElseNode(e, b1, null); :}
+       | KW_WHILE LPAREN expr:e RPAREN block:b {: RESULT = new WhileNode(e, b); :}
+       | KW_RETURN expr:e {: RESULT = new ReturnNode(e); :}
+       | func_call:fc {: RESULT = fc; :} 
+       ;
+
+// ----------------------------------------------------------------------
+// D. Chamada de Função e Expressões
+// ----------------------------------------------------------------------
+
+// Chamada de Função
+func_call ::= ID:i LPAREN arg_list:al RPAREN {: RESULT = new FuncCallNode(i, al); :};
+
+// Lista de Argumentos
+arg_list ::= expr:e {: RESULT = new ArgListNode(e); :}
+           | arg_list:al COMMA expr:e {: ((ArgListNode)al).add(e); RESULT = al; :}
+           | /* empty */ {: RESULT = new ArgListNode(); :}
+           ;
+
+// Expressões
+expr ::= expr:e1 PLUS expr:e2   {: RESULT = new BinaryOpNode(e1, "+", e2); :}
+       | expr:e1 MINUS expr:e2  {: RESULT = new BinaryOpNode(e1, "-", e2); :}
+       | expr:e1 TIMES expr:e2  {: RESULT = new BinaryOpNode(e1, "*", e2); :}
+       | expr:e1 SLASH expr:e2  {: RESULT = new BinaryOpNode(e1, "/", e2); :}
+       | expr:e1 EQ expr:e2 {: RESULT = new BinaryOpNode(e1, "==", e2); :}
+       | expr:e1 NEQ expr:e2 {: RESULT = new BinaryOpNode(e1, "!=", e2); :}
+       | expr:e1 LT expr:e2 {: RESULT = new BinaryOpNode(e1, "<", e2); :}
+       | expr:e1 GT expr:e2 {: RESULT = new BinaryOpNode(e1, ">", e2); :}
+       | expr:e1 LTE expr:e2 {: RESULT = new BinaryOpNode(e1, "<=", e2); :}
+       | expr:e1 GTE expr:e2 {: RESULT = new BinaryOpNode(e1, ">=", e2); :}
+       | LPAREN expr:e RPAREN {: RESULT = e; :}
+       | NUMBER:n                {: RESULT = new LiteralNode(n); :}
+       | func_call:fc {: RESULT = fc; :}
+       | ID:i                    {: RESULT = new IdentifierNode(i); :}
        ;

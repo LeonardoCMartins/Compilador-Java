@@ -1,6 +1,5 @@
 package ast;
 
-// Representa um número constante
 public class LiteralNode extends Node {
     public final Integer value;
 

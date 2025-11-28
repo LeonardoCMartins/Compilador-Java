@@ -1,6 +1,5 @@
 package ast;
 
-// Representa um identificador (ex: uma variável 'x')
 public class IdentifierNode extends Node {
     public final String name;
 

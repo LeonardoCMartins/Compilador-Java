@@ -1,15 +1,25 @@
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
+// import java.io.FileReader; // Não precisamos mais do FileReader
 
 import ast.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        //InputStreamReader reader = new InputStreamReader(System.in); 
-        FileReader reader = new FileReader("input.txt");
+        // Altere a leitura do arquivo para usar InputStreamReader e especificar a codificação (UTF-8)
+        // Isso resolve problemas com BOM ou caracteres invisíveis que causam falha imediata.
+        InputStreamReader reader = new InputStreamReader(
+            new FileInputStream("input.txt"), 
+            "UTF8" // ou "UTF-8"
+        ); 
+        
         scanner s = new scanner(reader);
         parser p = new parser(s);
-        Node ast = (Node)p.parse().value;
-        ast.print("");
+        
+        // Se a análise for bem-sucedida, o AST será construído
+        Node ast = (Node)p.parse().value; 
+        
+        System.out.println("--- AST Gerada com Sucesso ---");
+        ast.print(""); // Imprime a árvore (assumindo que o método print funciona)
     }
 }
