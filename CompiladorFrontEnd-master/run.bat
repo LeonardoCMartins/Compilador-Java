@@ -5,7 +5,7 @@ set "flex=lib\jflex-full-1.9.1.jar"
 set "cup=lib\java-cup-11b.jar"
 set "libs=.;lib\java-cup-11b.jar;lib\java-cup-11b-runtime.jar;lib\jflex-1.8.2.jar"
 
-java -jar %flex% calc.flex
-java -jar %cup% -parser parser -symbols sym calc.cup
-javac -cp "%libs%" *.java
+java -jar %flex% scanner.flex
+java -jar %cup% -parser parser -symbols sym parser.cup
+javac -cp "%libs%" Main.java scanner.java parser.java sym.java ast\*.java
 java -cp "%libs%" Main

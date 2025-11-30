@@ -1,18 +1,23 @@
-if (x1 >= 10) {
-    y = x1 + 3.14;
-    while (y != 0) {
-        y = y - 1;
+/*
+ * Este é um exemplo de código-fonte
+ * para o analisador léxico JFlex.
+ */
+
+void principal(int x, float y) { // Declaração da função principal
+    int contador = 0;
+    float resultado = 0.0;
+    
+    // Laço de repetição
+    while (contador < 10) {
+        resultado += 1.5; // Operador composto
+        contador++;     // Operador de incremento
     }
-    // comentário de uma linha
+    
+    if (x == 5) {
+        resultado = 99; // Atribuição de inteiro (deve ser INT)
+    } else {
+        resultado = 123.45; // Atribuição de float (deve ser FLOAT)
+    }
 
-    /*
-        comentário
-        de várias linhas
-    */
-
-    return y;
-}
-
-else {
-    z123 = 42;
+    return resultado;
 }

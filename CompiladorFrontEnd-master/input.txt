@@ -1,0 +1,26 @@
+# Função de soma (ARCEUS = func, poke = int, BULBASAUR = return)
+ARCEUS poke somar(poke a, poke b){
+    poke resultado = a + b;
+    BULBASAUR resultado;
+};
+
+pokedex("Iniciando");
+
+# Declarações e lógica no topo (permitido nesta gramática)
+poke x;
+poke y = 5;
+x = 10;
+
+# While (CHARMANDER)
+CHARMANDER (x > 0){
+    # If/Else (MEW/MEWTWO)
+    MEW (x == 5){
+        y = somar(x, 1);
+    } MEWTWO {
+        x = x - 1;
+    };
+};
+poke z = somar(x, y);
+SQUIRTLE (poke j = 0; j < i; j = j + 1) {
+    pokedex(j);
+};

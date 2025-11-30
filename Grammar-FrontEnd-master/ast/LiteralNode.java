@@ -1,9 +1,13 @@
 package ast;
 
 public class LiteralNode extends Node {
-    public final Integer value;
+    public final Object value;
 
     public LiteralNode(Integer value) {
+        this.value = value;
+    }
+
+    public LiteralNode(Float value) {
         this.value = value;
     }
 

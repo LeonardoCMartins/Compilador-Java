@@ -12,4 +12,4 @@ while(x > 0){
 		x = x - 1;
 	};
 };
-int z = somar(x, y);
+float z = somar(x, y);

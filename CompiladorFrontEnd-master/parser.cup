@@ -1,0 +1,112 @@
+import java_cup.runtime.*;
+import ast.*;
+
+parser code {:
+    scanner s;
+    parser(scanner s){ this.s=s; }
+:};
+
+scan with {: return s.next_token(); :};
+
+terminal KW_INT, KW_FLOAT, KW_IF, KW_ELSE, KW_WHILE, KW_FUNC, KW_RETURN, KW_FOR, KW_PRINT;
+terminal PLUS, MINUS, TIMES, SLASH;
+terminal EQ, NEQ, LT, GT, LTE, GTE;
+terminal LPAREN, RPAREN, LBRACE, RBRACE, SEMI, COMMA;
+terminal ASSIGN;
+terminal String ID, STRING_LIT;
+terminal Integer NUMBER;
+
+non terminal Node program, decl, stmt, block;
+non terminal Node expr, func_call, param_list, arg_list;
+non terminal String type;
+non terminal Node stmt_no_semi;
+
+non terminal Node decl_list, non_empty_top_level_list;
+non terminal Node stmt_list, non_empty_block_stmt_list;
+non terminal Node decl_or_stmt; 
+
+precedence right ASSIGN;
+precedence nonassoc EQ, NEQ; 
+precedence nonassoc LT, GT, LTE, GTE; 
+precedence left PLUS, MINUS; 
+precedence left TIMES, SLASH; 
+
+
+program ::= decl_list:dl {: RESULT = dl; :}; 
+
+
+decl_list ::= non_empty_top_level_list:nsl {: RESULT = nsl; :}
+            | /* empty */ {: RESULT = new ProgramNode(); :}
+            ;
+
+non_empty_top_level_list ::= non_empty_top_level_list:nl decl_or_stmt:d_s SEMI {: ((StatementListNode)nl).add(d_s); RESULT = nl; :}
+                           | decl_or_stmt:d_s SEMI {: RESULT = new StatementListNode(d_s); :}
+                           ;
+
+
+decl ::= type:t ID:i {: RESULT = new VarDeclNode(t, i); :} 
+       | type:t ID:i ASSIGN expr:e {: RESULT = new VarInitNode(t, i, e); :} 
+       | KW_FUNC type:t ID:i LPAREN param_list:pl RPAREN block:b {: RESULT = new FuncDefNode(t, i, pl, b); :} 
+       ;
+
+
+type ::= KW_INT:i   {: RESULT = "poke"; :} 
+       | KW_FLOAT:f {: RESULT = "candy"; :}
+       ;
+
+param_list ::= type:t ID:i {: RESULT = new ParamListNode(t, i); :}
+             | param_list:pl COMMA type:t ID:i {: ((ParamListNode)pl).add(t, i); RESULT = pl; :}
+             | /* empty */ {: RESULT = new ParamListNode(); :}
+             ;
+
+
+stmt_list ::= non_empty_block_stmt_list:nsl {: RESULT = nsl; :}
+            | /* empty */ {: RESULT = new StatementListNode(); :} 
+            ;
+
+decl_or_stmt ::= decl:d {: RESULT = d; :} 
+               | stmt:s {: RESULT = s; :} 
+               ;
+
+
+non_empty_block_stmt_list ::= non_empty_block_stmt_list:sl decl_or_stmt:d_s SEMI {: ((StatementListNode)sl).add(d_s); RESULT = sl; :}
+                            | decl_or_stmt:d_s SEMI {: RESULT = new StatementListNode(d_s); :}
+                            ;
+
+block ::= LBRACE stmt_list:sl RBRACE {: RESULT = sl; :};
+
+
+stmt ::= ID:i ASSIGN expr:e {: RESULT = new AssignmentNode(i, e); :} 
+       | KW_IF LPAREN expr:e RPAREN block:b1 KW_ELSE block:b2 {: RESULT = new IfElseNode(e, b1, b2); :} 
+       | KW_IF LPAREN expr:e RPAREN block:b1 {: RESULT = new IfElseNode(e, b1, null); :}
+       | KW_WHILE LPAREN expr:e RPAREN block:b {: RESULT = new WhileNode(e, b); :}
+       | KW_RETURN expr:e {: RESULT = new ReturnNode(e); :}
+       | func_call:fc {: RESULT = fc; :} 
+       | KW_PRINT LPAREN expr:e RPAREN {: RESULT = new PrintNode(e); :}
+       | KW_FOR LPAREN decl:init SEMI expr:cond SEMI stmt:inc RPAREN block:b {: RESULT = new ForNode(init, cond, inc, b); :}
+       ;
+
+func_call ::= ID:i LPAREN arg_list:al RPAREN {: RESULT = new FuncCallNode(i, al); :};
+
+arg_list ::= expr:e {: RESULT = new ArgListNode(e); :}
+           | arg_list:al COMMA expr:e {: ((ArgListNode)al).add(e); RESULT = al; :}
+           | /* empty */ {: RESULT = new ArgListNode(); :}
+           ;
+
+
+expr ::= expr:e1 PLUS expr:e2   {: RESULT = new BinaryOpNode(e1, "+", e2); :}
+       | expr:e1 MINUS expr:e2  {: RESULT = new BinaryOpNode(e1, "-", e2); :}
+       | expr:e1 TIMES expr:e2  {: RESULT = new BinaryOpNode(e1, "*", e2); :}
+       | expr:e1 SLASH expr:e2  {: RESULT = new BinaryOpNode(e1, "/", e2); :}
+       | expr:e1 EQ expr:e2     {: RESULT = new BinaryOpNode(e1, "==", e2); :}
+       | expr:e1 NEQ expr:e2    {: RESULT = new BinaryOpNode(e1, "!=", e2); :}
+       | expr:e1 LT expr:e2     {: RESULT = new BinaryOpNode(e1, "<", e2); :}
+       | expr:e1 GT expr:e2     {: RESULT = new BinaryOpNode(e1, ">", e2); :}
+       | expr:e1 LTE expr:e2    {: RESULT = new BinaryOpNode(e1, "<=", e2); :}
+       | expr:e1 GTE expr:e2    {: RESULT = new BinaryOpNode(e1, ">=", e2); :}
+       | LPAREN expr:e RPAREN   {: RESULT = e; :}
+       | NUMBER:n               {: RESULT = new LiteralNode(n); :}
+       | STRING_LIT:s           {: RESULT = new LiteralNode(s); :}
+       | func_call:fc           {: RESULT = fc; :}
+       | ID:i                   {: RESULT = new IdentifierNode(i); :}
+       ;

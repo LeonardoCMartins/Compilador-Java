@@ -63,10 +63,11 @@ class scanner {
     "\11\0\1\1\1\2\2\3\1\1\22\0\1\1\1\4"+
     "\6\0\1\5\1\6\1\7\1\10\1\11\1\12\1\13"+
     "\1\14\12\15\1\0\1\16\1\17\1\20\1\21\2\0"+
-    "\32\22\4\0\1\22\1\0\4\22\1\23\1\24\1\22"+
-    "\1\25\1\26\2\22\1\27\1\22\1\30\3\22\1\31"+
-    "\1\32\1\33\1\34\1\22\1\35\3\22\1\36\1\0"+
-    "\1\37\7\0\1\3\u01a2\0\2\3\326\0\u0100\3";
+    "\32\22\4\0\1\22\1\0\1\23\2\22\1\24\1\25"+
+    "\1\26\1\22\1\27\1\30\2\22\1\31\1\22\1\32"+
+    "\1\33\2\22\1\34\1\35\1\36\1\37\1\40\1\41"+
+    "\3\22\1\42\1\0\1\43\7\0\1\3\u01a2\0\2\3"+
+    "\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -93,14 +94,16 @@ class scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\1\1\4\1\5\1\6"+
-    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
-    "\1\17\5\20\1\21\1\22\1\23\1\0\1\24\1\0"+
-    "\1\25\1\26\1\27\1\20\1\30\2\20\1\0\1\31"+
-    "\3\20\1\32\1\33\3\20\1\34\1\35";
+    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
+    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
+    "\1\20\7\21\1\22\1\23\1\24\1\25\1\26\1\27"+
+    "\1\30\1\0\1\31\1\0\1\32\1\33\1\34\3\21"+
+    "\1\35\4\21\1\0\1\36\2\21\1\37\1\40\3\21"+
+    "\1\41\1\42\2\21\1\43\1\21\1\44\1\21\1\45"+
+    "\1\46";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[47];
+    int [] result = new int[64];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -125,15 +128,17 @@ class scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\40\0\100\0\40\0\140\0\40\0\40\0\40"+
-    "\0\40\0\40\0\40\0\200\0\240\0\40\0\300\0\340"+
-    "\0\u0100\0\u0120\0\u0140\0\u0160\0\u0180\0\u01a0\0\40\0\40"+
-    "\0\40\0\u01c0\0\u01e0\0\u0200\0\40\0\40\0\40\0\u0220"+
-    "\0\u0120\0\u0240\0\u0260\0\u0280\0\u0200\0\u02a0\0\u02c0\0\u02e0"+
-    "\0\u01c0\0\u0120\0\u0300\0\u0320\0\u0340\0\u0120\0\u0120";
+    "\0\0\0\44\0\110\0\44\0\154\0\44\0\44\0\44"+
+    "\0\220\0\44\0\264\0\330\0\374\0\44\0\u0120\0\u0144"+
+    "\0\u0168\0\u018c\0\u01b0\0\u01d4\0\u01f8\0\u021c\0\u0240\0\u0264"+
+    "\0\44\0\44\0\44\0\44\0\44\0\44\0\44\0\u0288"+
+    "\0\u02ac\0\u02d0\0\44\0\44\0\44\0\u02f4\0\u0318\0\u033c"+
+    "\0\u018c\0\u0360\0\u0384\0\u03a8\0\u03cc\0\u03f0\0\u02d0\0\u0414"+
+    "\0\u0438\0\u018c\0\u018c\0\u045c\0\u0480\0\u04a4\0\u0288\0\u018c"+
+    "\0\u04c8\0\u04ec\0\u018c\0\u0510\0\u018c\0\u0534\0\u018c\0\u018c";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[47];
+    int [] result = new int[64];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -158,26 +163,34 @@ class scanner {
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\2\3\1\4\1\5\1\6\1\7\1\10\1\11"+
     "\1\12\1\13\1\2\1\14\1\15\1\16\1\17\1\20"+
-    "\1\21\1\22\1\23\2\22\1\24\2\22\1\25\3\22"+
-    "\1\26\1\27\1\30\41\0\2\3\55\0\1\31\26\0"+
-    "\1\32\4\0\1\33\36\0\1\34\1\0\1\15\42\0"+
-    "\1\35\37\0\1\36\37\0\1\37\34\0\1\22\4\0"+
-    "\14\22\17\0\1\22\4\0\5\22\1\40\6\22\17\0"+
-    "\1\22\4\0\2\22\1\41\11\22\17\0\1\22\4\0"+
-    "\1\22\1\42\12\22\17\0\1\22\4\0\3\22\1\43"+
-    "\10\22\2\0\3\32\1\0\3\32\1\44\30\32\2\33"+
-    "\1\0\35\33\15\0\1\45\37\0\1\22\4\0\10\22"+
-    "\1\46\3\22\17\0\1\22\4\0\11\22\1\47\2\22"+
-    "\17\0\1\22\4\0\4\22\1\50\7\22\2\0\3\32"+
-    "\1\0\3\32\1\44\4\32\1\51\23\32\15\0\1\22"+
-    "\4\0\1\22\1\52\12\22\17\0\1\22\4\0\12\22"+
-    "\1\53\1\22\17\0\1\22\4\0\5\22\1\54\6\22"+
-    "\17\0\1\22\4\0\7\22\1\55\4\22\17\0\1\22"+
-    "\4\0\1\22\1\56\12\22\17\0\1\22\4\0\6\22"+
-    "\1\57\5\22\2\0";
+    "\1\21\3\22\1\23\1\24\1\22\1\25\3\22\1\26"+
+    "\3\22\1\27\1\30\1\31\1\32\45\0\2\3\61\0"+
+    "\1\33\33\0\1\34\7\0\1\35\35\0\1\36\5\0"+
+    "\1\37\32\0\1\40\4\0\1\41\42\0\1\42\1\0"+
+    "\1\15\46\0\1\43\43\0\1\44\43\0\1\45\40\0"+
+    "\1\22\4\0\20\22\17\0\1\22\4\0\7\22\1\46"+
+    "\10\22\17\0\1\22\4\0\7\22\1\47\1\22\1\50"+
+    "\6\22\17\0\1\22\4\0\4\22\1\51\3\22\1\52"+
+    "\7\22\17\0\1\22\4\0\3\22\1\53\14\22\17\0"+
+    "\1\22\4\0\11\22\1\54\6\22\17\0\1\22\4\0"+
+    "\5\22\1\55\12\22\2\0\3\40\1\0\3\40\1\56"+
+    "\34\40\2\41\1\0\41\41\15\0\1\57\43\0\1\22"+
+    "\4\0\13\22\1\60\4\22\17\0\1\22\4\0\11\22"+
+    "\1\61\6\22\17\0\1\22\4\0\12\22\1\62\5\22"+
+    "\17\0\1\22\4\0\14\22\1\63\3\22\17\0\1\22"+
+    "\4\0\14\22\1\64\3\22\17\0\1\22\4\0\6\22"+
+    "\1\65\11\22\17\0\1\22\4\0\6\22\1\66\11\22"+
+    "\2\0\3\40\1\0\3\40\1\56\4\40\1\67\27\40"+
+    "\15\0\1\22\4\0\3\22\1\70\14\22\17\0\1\22"+
+    "\4\0\1\22\1\71\16\22\17\0\1\22\4\0\15\22"+
+    "\1\72\2\22\17\0\1\22\4\0\2\22\1\73\15\22"+
+    "\17\0\1\22\4\0\7\22\1\74\10\22\17\0\1\22"+
+    "\4\0\14\22\1\75\3\22\17\0\1\22\4\0\12\22"+
+    "\1\76\5\22\17\0\1\22\4\0\3\22\1\77\14\22"+
+    "\17\0\1\22\4\0\10\22\1\100\7\22\2\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[864];
+    int [] result = new int[1368];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -220,12 +233,12 @@ class scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\1\11\1\1\6\11\2\1\1\11"+
-    "\10\1\3\11\1\0\1\1\1\0\3\11\4\1\1\0"+
-    "\13\1";
+    "\1\0\1\11\1\1\1\11\1\1\3\11\1\1\1\11"+
+    "\3\1\1\11\12\1\7\11\1\0\1\1\1\0\3\11"+
+    "\10\1\1\0\22\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[47];
+    int [] result = new int[64];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -717,147 +730,192 @@ class scanner {
             { System.out.println("<ILLEGAL:" + yytext() + ">");
             }
           // fall through
-          case 30: break;
+          case 39: break;
           case 2:
             { /* */
             }
           // fall through
-          case 31: break;
+          case 40: break;
           case 3:
             { System.out.print(yytext());
             }
           // fall through
-          case 32: break;
-          case 4:
-            { System.out.println("<LPAREN>");
-            }
-          // fall through
-          case 33: break;
-          case 5:
-            { System.out.println("<RPAREN>");
-            }
-          // fall through
-          case 34: break;
-          case 6:
-            { System.out.println("<TIMES>");
-            }
-          // fall through
-          case 35: break;
-          case 7:
-            { System.out.println("<PLUS>");
-            }
-          // fall through
-          case 36: break;
-          case 8:
-            { System.out.println("<COMMA>");
-            }
-          // fall through
-          case 37: break;
-          case 9:
-            { System.out.println("<MINUS>");
-            }
-          // fall through
-          case 38: break;
-          case 10:
-            { System.out.println("<SLASH>");
-            }
-          // fall through
-          case 39: break;
-          case 11:
-            { System.out.println("<INT:" + yytext() + ">");
-            }
-          // fall through
-          case 40: break;
-          case 12:
-            { System.out.println("<SEMI>");
-            }
-          // fall through
           case 41: break;
-          case 13:
-            { System.out.println("<LT>");
+          case 4:
+            { System.out.println("<OP_NOT>");
             }
           // fall through
           case 42: break;
-          case 14:
-            { System.out.println("<ASSIGN>");
+          case 5:
+            { System.out.println("<LPAREN>");
             }
           // fall through
           case 43: break;
-          case 15:
-            { System.out.println("<GT>");
+          case 6:
+            { System.out.println("<RPAREN>");
             }
           // fall through
           case 44: break;
-          case 16:
-            { System.out.println("<ID:" + yytext() + ">");
+          case 7:
+            { System.out.println("<TIMES>");
             }
           // fall through
           case 45: break;
-          case 17:
-            { System.out.println("<LBRACE>");
+          case 8:
+            { System.out.println("<PLUS>");
             }
           // fall through
           case 46: break;
-          case 18:
-            { System.out.println("<RBRACE>");
+          case 9:
+            { System.out.println("<COMMA>");
             }
           // fall through
           case 47: break;
-          case 19:
-            { System.out.println("<NE>");
+          case 10:
+            { System.out.println("<MINUS>");
             }
           // fall through
           case 48: break;
-          case 20:
-            { System.out.println("<COMMENT_SL>");
+          case 11:
+            { System.out.println("<SLASH>");
             }
           // fall through
           case 49: break;
-          case 21:
-            { System.out.println("<LE>");
+          case 12:
+            { System.out.println("<INT:" + yytext() + ">");
             }
           // fall through
           case 50: break;
-          case 22:
-            { System.out.println("<EQ>");
+          case 13:
+            { System.out.println("<SEMI>");
             }
           // fall through
           case 51: break;
-          case 23:
-            { System.out.println("<GE>");
+          case 14:
+            { System.out.println("<LT>");
             }
           // fall through
           case 52: break;
-          case 24:
-            { System.out.println("<IF>");
+          case 15:
+            { System.out.println("<ASSIGN>");
             }
           // fall through
           case 53: break;
-          case 25:
-            { System.out.println("<FLOAT:" + yytext() + ">");
+          case 16:
+            { System.out.println("<GT>");
             }
           // fall through
           case 54: break;
-          case 26:
-            { System.out.println("<COMMENT_ML>");
+          case 17:
+            { System.out.println("<ID:" + yytext() + ">");
             }
           // fall through
           case 55: break;
-          case 27:
-            { System.out.println("<ELSE>");
+          case 18:
+            { System.out.println("<LBRACE>");
             }
           // fall through
           case 56: break;
-          case 28:
-            { System.out.println("<WHILE>");
+          case 19:
+            { System.out.println("<RBRACE>");
             }
           // fall through
           case 57: break;
-          case 29:
-            { System.out.println("<RETURN>");
+          case 20:
+            { System.out.println("<NE>");
             }
           // fall through
           case 58: break;
+          case 21:
+            { System.out.println("<OP_INC>");
+            }
+          // fall through
+          case 59: break;
+          case 22:
+            { System.out.println("<OP_PLUS_ASSIGN>");
+            }
+          // fall through
+          case 60: break;
+          case 23:
+            { System.out.println("<OP_DEC>");
+            }
+          // fall through
+          case 61: break;
+          case 24:
+            { System.out.println("<OP_MINUS_ASSIGN>");
+            }
+          // fall through
+          case 62: break;
+          case 25:
+            { System.out.println("<COMMENT_SL>");
+            }
+          // fall through
+          case 63: break;
+          case 26:
+            { System.out.println("<LE>");
+            }
+          // fall through
+          case 64: break;
+          case 27:
+            { System.out.println("<EQ>");
+            }
+          // fall through
+          case 65: break;
+          case 28:
+            { System.out.println("<GE>");
+            }
+          // fall through
+          case 66: break;
+          case 29:
+            { System.out.println("<KW_IF>");
+            }
+          // fall through
+          case 67: break;
+          case 30:
+            { System.out.println("<FLOAT:" + yytext() + ">");
+            }
+          // fall through
+          case 68: break;
+          case 31:
+            { System.out.println("<KW_FOR>");
+            }
+          // fall through
+          case 69: break;
+          case 32:
+            { System.out.println("<KW_INT>");
+            }
+          // fall through
+          case 70: break;
+          case 33:
+            { System.out.println("<COMMENT_ML>");
+            }
+          // fall through
+          case 71: break;
+          case 34:
+            { System.out.println("<KW_ELSE>");
+            }
+          // fall through
+          case 72: break;
+          case 35:
+            { System.out.println("<KW_VOID>");
+            }
+          // fall through
+          case 73: break;
+          case 36:
+            { System.out.println("<KW_FLOAT>");
+            }
+          // fall through
+          case 74: break;
+          case 37:
+            { System.out.println("<KW_WHILE>");
+            }
+          // fall through
+          case 75: break;
+          case 38:
+            { System.out.println("<KW_RETURN>");
+            }
+          // fall through
+          case 76: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

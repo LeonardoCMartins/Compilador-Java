@@ -10,6 +10,7 @@ WHITESPACE = [ \t\n\r]+
 DIGIT = [0-9]
 LETTER = [a-zA-Z]
 ID = {LETTER}({LETTER}|{DIGIT})*
+FLOAT = {DIGIT}+ "." {DIGIT}+
 
 %%
 
@@ -46,6 +47,7 @@ ID = {LETTER}({LETTER}|{DIGIT})*
 ","                {return new Symbol(sym.COMMA);}
 ";"                {return new Symbol(sym.SEMI);}
 
+{FLOAT}            {return new Symbol(sym.FLOAT_NUMBER, Float.parseFloat(yytext()));}
 {DIGIT}+           {return new Symbol(sym.NUMBER, Integer.parseInt(yytext()));}
 {ID}               {return new Symbol(sym.ID,yytext());}
 

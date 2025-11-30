@@ -1,25 +1,21 @@
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+import ast.*;
 
 public class Main {
-    public static void main(String[] args) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            scanner scanner = new scanner(reader);
-            parser parser = new parser(scanner);
-
-            System.out.println("Enter expressions (end with semicolon ';'):");
-
-            while (true) {
-                System.out.print("> ");
-                String input = reader.readLine();
-                if (input == null || input.equalsIgnoreCase("exit")) break;
-
-                // Feed input to the scanner
-                scanner.yyreset(new StringReader(input));
-                parser.parse();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws Exception {
+        InputStreamReader reader = new InputStreamReader(
+            new FileInputStream("input.txt"), 
+            "UTF8"
+        ); 
+        
+        scanner s = new scanner(reader);
+        parser p = new parser(s);
+        
+        Node ast = (Node)p.parse().value; 
+        
+        System.out.println("--- AST Gerada com Sucesso ---");
+        ast.print(""); 
     }
 }
