@@ -15,7 +15,7 @@ public class FuncDefNode extends Node {
 
     @Override
     public void print(String prefix) {
-        System.out.println(prefix + "FUNC DEF: " + returnType + " " + funcName);
+        System.out.println(prefix + "FUNC <ARCEUS>: " + returnType + " " + funcName);
         System.out.println(prefix + "|-- PARAMS:");
         params.print(prefix + "|   | ");
         System.out.println(prefix + "|-- BODY:");

@@ -15,7 +15,7 @@ public class ForNode extends Node {
 
     @Override
     public void print(String indent) {
-        System.out.println(indent + "For (SQUIRTLE)");
+        System.out.println(indent + "FOR <SQUIRTLE>");
         
         System.out.println(indent + "  [Init]:");
         if (initialization != null) initialization.print(indent + "    ");

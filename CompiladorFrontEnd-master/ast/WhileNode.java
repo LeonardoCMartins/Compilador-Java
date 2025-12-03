@@ -11,7 +11,7 @@ public class WhileNode extends Node {
 
     @Override
     public void print(String prefix) {
-        System.out.println(prefix + "WHILE");
+        System.out.println(prefix + "WHILE <CHARMANDER>");
         System.out.println(prefix + "|-- COND:");
         condition.print(prefix + "|   | ");
         

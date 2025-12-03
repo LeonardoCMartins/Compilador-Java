@@ -15,6 +15,7 @@ terminal LPAREN, RPAREN, LBRACE, RBRACE, SEMI, COMMA;
 terminal ASSIGN;
 terminal String ID, STRING_LIT;
 terminal Integer NUMBER;
+terminal String KW_STRING;
 
 non terminal Node program, decl, stmt, block;
 non terminal Node expr, func_call, param_list, arg_list;
@@ -107,6 +108,7 @@ expr ::= expr:e1 PLUS expr:e2   {: RESULT = new BinaryOpNode(e1, "+", e2); :}
        | LPAREN expr:e RPAREN   {: RESULT = e; :}
        | NUMBER:n               {: RESULT = new LiteralNode(n); :}
        | STRING_LIT:s           {: RESULT = new LiteralNode(s); :}
+       | KW_STRING:p            {: RESULT = new LiteralNode(p); :}
        | func_call:fc           {: RESULT = fc; :}
        | ID:i                   {: RESULT = new IdentifierNode(i); :}
        ;

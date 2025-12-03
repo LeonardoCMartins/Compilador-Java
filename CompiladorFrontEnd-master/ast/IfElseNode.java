@@ -13,7 +13,7 @@ public class IfElseNode extends Node {
 
     @Override
     public void print(String prefix) {
-        System.out.println(prefix + "IF");
+        System.out.println(prefix + "IF <MEW>");
         System.out.println(prefix + "|-- COND:");
         condition.print(prefix + "|   | ");
         
@@ -21,7 +21,7 @@ public class IfElseNode extends Node {
         thenBlock.print(prefix + "|   | ");
 
         if (elseBlock != null) {
-            System.out.println(prefix + "|-- ELSE:");
+            System.out.println(prefix + "|-- ELSE <MEWTWO>:");
             elseBlock.print(prefix + "|   | ");
         }
     }

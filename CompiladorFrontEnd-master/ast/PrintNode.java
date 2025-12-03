@@ -9,7 +9,7 @@ public class PrintNode extends Node {
 
     @Override
     public void print(String indent) {
-        System.out.println(indent + "Print (pokedex)");
+        System.out.println(indent + "PRINT (POKEDEX)");
         if (expression != null) {
             expression.print(indent + "  ");
         }

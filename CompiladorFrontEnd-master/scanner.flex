@@ -28,6 +28,7 @@ STRING_LIT = \"[^\"\n]*\"
 "ARCEUS"           { System.out.println("<ARCEUS (FUNC)>"); return new Symbol(sym.KW_FUNC); }
 "BULBASAUR"        { System.out.println("<BULBASAUR (RETURN)>"); return new Symbol(sym.KW_RETURN); }
 "pokedex"          { System.out.println("<POKEDEX (PRINT)>"); return new Symbol(sym.KW_PRINT); }
+"PIKACHU"          { System.out.println("<PIKACHU (STRING)>"); return new Symbol(sym.KW_STRING);}
 
 "+"                { System.out.println("<PLUS>"); return new Symbol(sym.PLUS); }
 "-"                { System.out.println("<MINUS>"); return new Symbol(sym.MINUS); }

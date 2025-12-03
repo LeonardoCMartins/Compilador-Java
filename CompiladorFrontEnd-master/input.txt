@@ -11,7 +11,7 @@ poke x;
 poke y = 5;
 x = 10;
 
-# While (CHARMANDER)
+# While (CHARMANDER) 
 CHARMANDER (x > 0){
     # If/Else (MEW/MEWTWO)
     MEW (x == 5){
@@ -20,7 +20,8 @@ CHARMANDER (x > 0){
         x = x - 1;
     };
 };
-poke z = somar(x, y);
+candy z = somar(x, y);
+
 SQUIRTLE (poke j = 0; j < i; j = j + 1) {
     pokedex(j);
 };

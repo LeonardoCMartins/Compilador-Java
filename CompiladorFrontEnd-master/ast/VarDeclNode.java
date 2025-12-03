@@ -11,6 +11,12 @@ public class VarDeclNode extends Node {
 
     @Override
     public void print(String prefix) {
-        System.out.println(prefix + "VAR DECL: " + type + " " + idName);
+        String extra = "";
+        if (type.equals("int")) {
+            extra = " <poke>";
+        } else if (type.equals("float")) {
+            extra = " candy";
+        }
+        System.out.println(prefix + "VAR DECL: " + type + extra + " " + idName);
     }
 }

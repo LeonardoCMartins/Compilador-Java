@@ -11,7 +11,7 @@ public class FuncCallNode extends Node {
 
     @Override
     public void print(String prefix) {
-        System.out.println(prefix + "FUNC CALL: " + funcName);
+        System.out.println(prefix + "FUNC <ARCEUS> CALL: " + funcName);
         System.out.println(prefix + "|-- ARGS:");
         args.print(prefix + "|   | ");
     }

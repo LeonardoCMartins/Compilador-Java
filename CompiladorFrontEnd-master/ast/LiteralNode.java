@@ -19,9 +19,11 @@ public class LiteralNode extends Node {
     public void print(String prefix) {
         String type = "Unknown";
         if (value instanceof Integer) {
-            type = "Integer";
+            type = "Integer <POKE>";
         } else if (value instanceof String) {
-            type = "String";
+            type = "String <PIKACHU>";
+        } else if (value instanceof Float) {
+            type = "Float <CANDY>";
         }
         
         System.out.println(prefix + "LITERAL (" + type + "): " + value);

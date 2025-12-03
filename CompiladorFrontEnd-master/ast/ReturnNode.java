@@ -9,7 +9,7 @@ public class ReturnNode extends Node {
 
     @Override
     public void print(String prefix) {
-        System.out.println(prefix + "RETURN");
+        System.out.println(prefix + "RETURN <BULBASAUR>");
         expression.print(prefix + "| ");
     }
 }
