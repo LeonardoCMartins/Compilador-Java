@@ -51,7 +51,7 @@ STRING_LIT = \"[^\"\n]*\"
 ";"                { System.out.println("<SEMI>"); return new Symbol(sym.SEMI); }
 
 {DIGIT}+           { System.out.println("<INT:" + yytext() + ">"); return new Symbol(sym.NUMBER, Integer.parseInt(yytext())); }
-{STRING_LIT}       { System.out.println("<STRING_LIT:" + yytext() + ">"); String s = yytext(); return new Symbol(sym.STRING_LIT, s.substring(1, s.length()-1)); }
+{STRING_LIT}       { System.out.println("<PIKACHU (STRING)" + yytext() + ">"); String s = yytext(); return new Symbol(sym.STRING_LIT, s.substring(1, s.length()-1)); }
 {ID}               { System.out.println("<ID:" + yytext() + ">"); return new Symbol(sym.ID, yytext()); }
 
 <<EOF>>            { return new Symbol(sym.EOF); }
