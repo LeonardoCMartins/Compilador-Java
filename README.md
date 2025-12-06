@@ -17,7 +17,6 @@ Este projeto implementa:
 | Palavra | Significado real |
 |--------|------------------|
 | `poke` | `Int` |
-| `candy` | `Float` |
 | `PIKACHU` | `String` |
 
 ### **Estruturas**
