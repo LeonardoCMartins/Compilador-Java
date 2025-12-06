@@ -46,7 +46,7 @@ STRING_LIT = \"[^\"\n]*\"
 "("                { System.out.println("<LPAREN>"); return new Symbol(sym.LPAREN); }
 ")"                { System.out.println("<RPAREN>"); return new Symbol(sym.RPAREN); }
 "{"                { System.out.println("<LBRACE>"); return new Symbol(sym.LBRACE); }
-"}"                { System.out.println("RBRACE>"); return new Symbol(sym.RBRACE); }
+"}"                { System.out.println("<RBRACE>"); return new Symbol(sym.RBRACE); }
 ","                { System.out.println("<COMMA>"); return new Symbol(sym.COMMA); }
 ";"                { System.out.println("<SEMI>"); return new Symbol(sym.SEMI); }
 
